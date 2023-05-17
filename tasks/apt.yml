@@ -19,7 +19,7 @@
         owner: root
         group: root
 
-    - name: Sury GPG key present
+    - name: OpenProject GPG key present
       ansible.builtin.get_url:
         url: "{{ openproject_gpg_url }}"
         checksum: "{{ openproject_gpg_checksum }}"
