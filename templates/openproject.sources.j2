@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+# deb https://dl.packager.io/srv/deb/opf/openproject/stable/12/debian 11 main
+
+Types: deb
+URIs:
+Suites: {{ ansible_distribution_release }}
+Architectures: {{ ansible_facts.ansible_local.dpkg.arch }}
+Components: main
+Signed-By: /etc/apt/keyrings/openproject.gpg
+
+# vim: ft=debsources

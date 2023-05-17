@@ -1,0 +1,93 @@
+# Copyright 2023 Chris Croome
+#
+# This file is part of the Webarchitects OpenProject Ansible role.
+#
+# The Webarchitects OpenProject Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects OpenProject Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: OpenProject apt repo present
+  block:
+
+    - name: Apt keyrings directory present
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+
+    - name: Sury GPG key present
+      ansible.builtin.get_url:
+        url: "{{ openproject_gpg_url }}"
+        checksum: "{{ openproject_gpg_checksum }}"
+        dest: /etc/apt/keyrings/openproject.gpg
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Stat the GPG key
+      ansible.builtin.stat:
+        path: /etc/apt/keyrings/openproject.gpg
+      register: openproject_gpg_file
+
+    - name: Check the GPG fingerprints when the public key is present
+      block:
+
+        - name: OpenProject gpg key check command
+          ansible.builtin.command: >-
+            gpg --with-colons
+            {% if ansible_local.gpg.version is version('2.2.12', '<') %}
+            --with-fingerprint --with-subkey-fingerprint
+            {% else %}
+            --show-keys
+            {% endif %}
+            /etc/apt/keyrings/openproject.gpg
+          check_mode: false
+          changed_when: false
+          register: openproject_gpg
+
+        - name: Set a fact for the OpenProject GPG fingerprints on the server
+          ansible.builtin.set_fact:
+            openproject_gpg_fingerprints_found: "{{ openproject_gpg.stdout | string | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
+
+        - name: OpenProject gpg key check fingerprints
+          ansible.builtin.assert:
+            that:
+              - openproject_gpg_fingerprints_found | difference(openproject_gpg_fingerprints) | length == 0
+              - openproject_gpg_fingerprints | difference(openproject_gpg_fingerprints_found) | length == 0
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+
+      when: ( openproject_gpg_file.stat.exists | bool )
+
+#    - name: OpenProject repository sources file present
+#      ansible.builtin.template:
+#        src: openproject.sources.j2
+#        dest: /etc/apt/sources.list.d/openproject.sources
+#        mode: 0644
+#        owner: root
+#        group: root
+#      register: openproject_sources
+#
+#    - name: OpenProject apt preferences present
+#      ansible.builtin.template:
+#        src: openproject.pref.j2
+#        dest: /etc/apt/preferences.d/openproject.pref
+#        mode: 0644
+#        owner: root
+#        group: root
+#      register: openproject_preferences
+#
+#    - name: Update apt cache  # noqa: no-handler
+#      ansible.builtin.apt:
+#        update_cache: true
+#        cache_valid_time: 60
+#      when: >-
+#        ( openproject_sources.changed | bool ) or
+#        ( openproject_preferences.changed | bool )
+
+  tags:
+    - openproject
+...

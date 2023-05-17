@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+
+{% if ansible_distribution_release == "bullseye" %}
+{% for pkg in openproject_debian_bullseye_pkg %}
+Package: {{ pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{% endfor %}
+{% elif ansible_distribution_release == "buster" %}
+{% for pkg in openproject_debian_buster_pkg %}
+Package: {{ pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{% endfor %}
+{% endif %}
+# vim: ft=debsources

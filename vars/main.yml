@@ -1,0 +1,24 @@
+# Copyright 2023 Chris Croome
+#
+# This file is part of the Webarchitects OpenProject Ansible role.
+#
+# The Webarchitects OpenProject Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects OpenProject Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+
+# GPG public key URL linked from
+# https://www.openproject.org/docs/installation-and-operations/installation/packaged/#debian-11
+openproject_gpg_url: https://dl.packager.io/srv/opf/openproject/key
+
+# GPG public key sha256sum
+# wget -q 'https://dl.packager.io/srv/opf/openproject/key' -O - | sha256sum - | awk '{ print $1 }' | sed 's/^/"sha256:/' | sed 's/$/"/'
+openproject_gpg_checksum: "sha256:35ee80b7fca522dc8f418e81ff20ae189e957f0216f1e47c29cca2cd5f0069e0"
+
+# GPG fingerprints
+# wget -q 'https://dl.packager.io/srv/opf/openproject/key' -O - | gpg --dearmor | gpg --with-colons --show-keys - | grep ^fpr | sed 's/^fpr//' | sed 's/://g' | sed 's/^/  - /'
+openproject_gpg_fingerprints:
+  - 6257DF9972462F57A20FFB2AB6D583CCBD33EEB8
+
