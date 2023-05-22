@@ -7,29 +7,38 @@
     - localhost
   tasks:
 
-    - name: Printenv
-      ansible.builtin.command: printenv
-      changed_when: false
-      register: openproject_molecule_printenv
+    # - name: Printenv
+    #   ansible.builtin.command: printenv
+    #   changed_when: false
+    #   register: openproject_molecule_printenv
 
-    - name: Debug printenv
-      ansible.builtin.debug:
-        var: openproject_molecule_printenv.stdout_lines
+    # - name: Debug printenv
+    #   ansible.builtin.debug:
+    #     var: openproject_molecule_printenv.stdout_lines
 
-    - name: Pwd
-      ansible.builtin.command: pwd
-      changed_when: false
-      register: openproject_molecule_pwd
+    # - name: Pwd
+    #   ansible.builtin.command: pwd
+    #   changed_when: false
+    #   register: openproject_molecule_pwd
 
-    - name: Debug pwd
-      ansible.builtin.debug:
-        var: openproject_molecule_pwd.stdout
+    # - name: Debug pwd
+    #   ansible.builtin.debug:
+    #     var: openproject_molecule_pwd.stdout
 
     - name: Install apt role
       community.general.ansible_galaxy_install:
         type: role
         name: chriscroome.apt
         dest: roles/apt
+
+    - name: Check apt role
+      ansible.builtin.command: ls roles/apt -lah
+      changed_when: false
+      register: openproject_molecule_ls
+
+    - name: Debug ls
+      ansible.builtin.debug:
+        var: openproject_molecule_ls.stdout_lines
 
     - name: Include Role
       ansible.builtin.include_role:
