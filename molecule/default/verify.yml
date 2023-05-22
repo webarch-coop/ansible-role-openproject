@@ -1,10 +1,14 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
   tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
+
+    - name: Check that OpenProject is available for installation
+      ansible.builtin.command: apt-cache search openproject
+      check_mode: false
+      changed_when: false
+      register: openproject_molecule_apt_cache_search
+      failed_when: ("openproject" not in openproject_molecule_apt_cache_search.stdout)
+
+...
