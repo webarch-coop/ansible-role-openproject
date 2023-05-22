@@ -1,7 +1,10 @@
 ---
 - name: Verify
-  hosts: all
+  become: false
+  connection: local
   gather_facts: false
+  hosts:
+    - localhost
   tasks:
 
     - name: Check that OpenProject is available for installation
