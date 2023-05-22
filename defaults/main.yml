@@ -1,4 +1,6 @@
 ---
 openproject: true
 openproject_major_version: 12
+openproject_pkgs_present:
+  - openproject
 ...

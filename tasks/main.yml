@@ -24,6 +24,12 @@
     - name: Include the apt tasks
       ansible.builtin.include_tasks: apt.yml
 
+    - name: Install packages
+      ansible.builtin.apt:
+        pkg: "{{ openproject_pkgs_present }}"
+        state: present
+        update_cache: true
+
   when:
     - openproject is defined
     - openproject | bool
