@@ -23,7 +23,11 @@
 
     # - name: Debug pwd
     #   ansible.builtin.debug:
-    #     var: openproject_molecule_pwd.stdout
+    #     var: openproject_molecule_pwd.
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
 
     - name: Install Ansible Galaxy roles
       community.general.ansible_galaxy_install:
@@ -31,14 +35,14 @@
         requirements_file: requirements.yml
         dest: galaxy/roles
 
-    - name: Check apt role
-      ansible.builtin.command: ls galaxy/roles -lah
-      changed_when: false
-      register: openproject_molecule_ls
+    # - name: Check apt role
+    #   ansible.builtin.command: ls galaxy/roles -lah
+    #   changed_when: false
+    #   register: openproject_molecule_ls
 
-    - name: Debug ls
-      ansible.builtin.debug:
-        var: openproject_molecule_ls.stdout_lines
+    # - name: Debug ls
+    #   ansible.builtin.debug:
+    #     var: openproject_molecule_ls.stdout_lines
 
     - name: Include Role
       ansible.builtin.include_role:
