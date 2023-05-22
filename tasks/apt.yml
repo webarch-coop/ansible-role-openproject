@@ -11,6 +11,9 @@
 - name: OpenProject apt repo present
   block:
 
+    - name: Gather facts
+      ansible.builtin.setup:
+
     - name: Apt keyrings directory present
       ansible.builtin.file:
         path: /etc/apt/keyrings
