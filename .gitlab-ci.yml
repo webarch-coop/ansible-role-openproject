@@ -11,6 +11,5 @@ molecule:
   stage: test
   script:
     - molecule converge
-    - molecule verify
 # vim: syntax=yaml
 ...

@@ -16,4 +16,11 @@
     - name: Include Role
       ansible.builtin.include_role:
         name: openproject
+
+    - name: Check that OpenProject is available for installation
+      ansible.builtin.command: apt-cache search openproject
+      check_mode: false
+      changed_when: false
+      register: openproject_molecule_apt_cache_search
+      failed_when: ("openproject" not in openproject_molecule_apt_cache_search.stdout)
 ...
