@@ -29,7 +29,7 @@
       community.general.ansible_galaxy_install:
         type: role
         name: chriscroome.apt
-        dest: roles
+        dest: roles/apt
 
     - name: Include Role
       ansible.builtin.include_role:
