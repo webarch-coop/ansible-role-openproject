@@ -76,7 +76,7 @@
               - openproject_gpg_fingerprints | difference(openproject_gpg_fingerprints_found) | length == 0
             quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
-      when: ( openproject_gpg_file.stat.exists | bool )
+      when: ( openproject_asc_file.stat.exists | bool )
 
     - name: OpenProject repository sources file present
       ansible.builtin.template:
