@@ -1,0 +1,6 @@
+---
+- name: apt
+  src: https://git.coop/webarch/apt.git
+  version: 2.2.1  # apt
+  scm: git
+...
