@@ -7,6 +7,14 @@
     - localhost
   tasks:
 
+    - name: Printenv
+      ansible.builtin.command: printenv
+      changed_when: false
+
+    - name: Pwd
+      ansible.builtin.command: pwd
+      changed_when: false
+
     - name: Install apt role
       community.general.ansible_galaxy_install:
         type: role
