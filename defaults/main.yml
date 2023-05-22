@@ -1,2 +1,4 @@
 ---
-# defaults file for molecule
+openproject: true
+openproject_major_version: 12
+...

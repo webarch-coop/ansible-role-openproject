@@ -14,4 +14,10 @@
     - name: Include the apt tasks
       ansible.builtin.include_tasks: apt.yml
 
+  when:
+    - openproject is defined
+    - openproject | bool
+
+  tags:
+    - openproject
 ...

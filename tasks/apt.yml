@@ -19,22 +19,35 @@
         owner: root
         group: root
 
-    - name: OpenProject GPG key present
+    - name: OpenProject ASCII armored GPG key file present
       ansible.builtin.get_url:
         url: "{{ openproject_gpg_url }}"
         checksum: "{{ openproject_gpg_checksum }}"
-        dest: /etc/apt/keyrings/openproject.gpg
+        dest: /root/openproject.asc
         mode: 0644
         owner: root
         group: root
 
-    - name: Stat the GPG key
+    - name: Stat the OpenProject ASCII armored GPG key file
+      ansible.builtin.stat:
+        path: /root/openproject.asc
+      register: openproject_asc_file
+
+    - name: Stat the OpenProject GPG dearmored key file
       ansible.builtin.stat:
         path: /etc/apt/keyrings/openproject.gpg
       register: openproject_gpg_file
 
     - name: Check the GPG fingerprints when the public key is present
       block:
+
+        - name: OpenProject GPG key dearmored
+          ansible.builtin.shell: |
+            gpg --dearmor < /root/openproject.asc > /etc/apt/keyrings/openproject.gpg
+          args:
+            executable: "{{ ansible_local.bash.path }}"
+          changed_when: false
+          when: openproject_asc_file.stat.exists
 
         - name: OpenProject gpg key check command
           ansible.builtin.command: >-
@@ -62,31 +75,31 @@
 
       when: ( openproject_gpg_file.stat.exists | bool )
 
-#    - name: OpenProject repository sources file present
-#      ansible.builtin.template:
-#        src: openproject.sources.j2
-#        dest: /etc/apt/sources.list.d/openproject.sources
-#        mode: 0644
-#        owner: root
-#        group: root
-#      register: openproject_sources
-#
-#    - name: OpenProject apt preferences present
-#      ansible.builtin.template:
-#        src: openproject.pref.j2
-#        dest: /etc/apt/preferences.d/openproject.pref
-#        mode: 0644
-#        owner: root
-#        group: root
-#      register: openproject_preferences
-#
-#    - name: Update apt cache  # noqa: no-handler
-#      ansible.builtin.apt:
-#        update_cache: true
-#        cache_valid_time: 60
-#      when: >-
-#        ( openproject_sources.changed | bool ) or
-#        ( openproject_preferences.changed | bool )
+    - name: OpenProject repository sources file present
+      ansible.builtin.template:
+        src: openproject.sources.j2
+        dest: /etc/apt/sources.list.d/openproject.sources
+        mode: 0644
+        owner: root
+        group: root
+      register: openproject_sources
+
+    - name: OpenProject apt preferences present
+      ansible.builtin.template:
+        src: openproject.pref.j2
+        dest: /etc/apt/preferences.d/openproject.pref
+        mode: 0644
+        owner: root
+        group: root
+      register: openproject_preferences
+
+    - name: Update apt cache  # noqa: no-handler
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 60
+      when: >-
+        ( openproject_sources.changed | bool ) or
+        ( openproject_preferences.changed | bool )
 
   tags:
     - openproject

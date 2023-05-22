@@ -22,4 +22,9 @@ openproject_gpg_checksum: "sha256:35ee80b7fca522dc8f418e81ff20ae189e957f0216f1e4
 openproject_gpg_fingerprints:
   - 6257DF9972462F57A20FFB2AB6D583CCBD33EEB8
 
+# Get the packages available using the following command
+# grep Package /var/lib/apt/lists/dl.packager.io_srv_deb_opf_openproject_*Packages | awk '{print $2}' | sort -u | sed 's/^/  - /'
+openproject_pkg:
+  - openproject
+  - Packager.io
 ...
