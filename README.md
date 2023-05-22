@@ -1,56 +1,13 @@
-Role Name
-=========
+# Role Name
 
-A brief description of the role goes here.
+Currently this role only installs OpenProject, configuration needs to be done using the wizard.
 
-Requirements
-------------
+In the future the `/etc/openproject/installer.dat` file could be created by this role and `openproject configure` could be run.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
-Role Variables
---------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
-Role creation
--------------
-
-There has to be a better way to do this...
-
-```bash
-export rolename="rolename"
-mkdir "${rolename}"
-cd "${rolename}"
-ansible-galaxy role init --init-path ../ "${rolename}" --force
-molecule init scenario -r "${rolename}"
-git init
-git remote add origin "git@git.coop:webarch/${rolename}"
-git add .
-git commit
-git push -u origin master
-```
-
-License
--------
+## License
 
 GNU General Public License v3.0 (GPLv3)
 
-Author Information
-------------------
+## Author Information
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
