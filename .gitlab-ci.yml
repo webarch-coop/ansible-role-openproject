@@ -10,6 +10,7 @@ before_script:
 molecule:
   stage: test
   script:
-    - molecule test
+    - molecule converge
+    - molecule verify
 # vim: syntax=yaml
 ...
