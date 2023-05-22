@@ -10,10 +10,20 @@
     - name: Printenv
       ansible.builtin.command: printenv
       changed_when: false
+      register: openproject_molecule_printenv
+
+    - name: Debug printenv
+      ansible.builtin.debug:
+        var: openproject_molecule_printenv.stdout
 
     - name: Pwd
       ansible.builtin.command: pwd
       changed_when: false
+      register: openproject_molecule_pwd
+
+    - name: Debug pwd
+      ansible.builtin.debug:
+        var: openproject_molecule_pwd.stdout
 
     - name: Install apt role
       community.general.ansible_galaxy_install:
