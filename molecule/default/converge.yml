@@ -7,6 +7,12 @@
     - localhost
   tasks:
 
+    - name: Install apt role
+      community.general.ansible_galaxy_install:
+        type: role
+        name: chriscroome.apt
+        dest: .
+
     - name: Include Role
       ansible.builtin.include_role:
         name: openproject

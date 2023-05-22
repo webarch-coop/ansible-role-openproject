@@ -11,6 +11,16 @@
 - name: OpenProject
   block:
 
+    - name: Include apt role local fact tasks
+      ansible.builtin.include_role:
+        name: apt
+        tasks_from: local_facts.yml
+      when: >-
+        ( ansible_local.dpkg.arch is not defined ) or
+        ( ansible_local.dpkg.installed is not defined ) or
+        ( ansible_local.gpg.version is not defined ) or
+        ( ansible_local.bash.path is not defined )
+
     - name: Include the apt tasks
       ansible.builtin.include_tasks: apt.yml
 
