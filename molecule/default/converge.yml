@@ -14,7 +14,7 @@
 
     - name: Debug printenv
       ansible.builtin.debug:
-        var: openproject_molecule_printenv.stdout
+        var: openproject_molecule_printenv.stdout_lines
 
     - name: Pwd
       ansible.builtin.command: pwd
@@ -29,6 +29,7 @@
       community.general.ansible_galaxy_install:
         type: role
         name: chriscroome.apt
+        dest: roles
 
     - name: Include Role
       ansible.builtin.include_role:
