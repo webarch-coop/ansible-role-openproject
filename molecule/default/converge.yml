@@ -15,7 +15,7 @@
 
     - name: Debug pwd
       ansible.builtin.debug:
-        var: pwd
+        var: molecule_pwd.stdout
 
     - name: Check Jinja2 syntax
       ansible.builtin.command: find -type f -name '*.j2' -exec ansiblej2lint.py {} +
