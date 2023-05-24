@@ -4,6 +4,8 @@ Currently this role only installs OpenProject, configuration needs to be done us
 
 In the future the `/etc/openproject/installer.dat` file could be created by this role and `openproject configure` could be run.
 
+Note that for some reason `openproject configure` seems to fail if the server is not rebooted before it is run.
+
 ## License
 
 GNU General Public License v3.0 (GPLv3)

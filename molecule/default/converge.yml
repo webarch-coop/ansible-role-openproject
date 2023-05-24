@@ -1,5 +1,5 @@
 ---
-- name: Converge
+- name: Lint
   become: false
   connection: local
   gather_facts: false
@@ -7,20 +7,18 @@
     - localhost
   tasks:
 
-    - name: Install Ansible Galaxy roles
-      community.general.ansible_galaxy_install:
-        type: role
-        requirements_file: requirements.yml
-        dest: galaxy/roles
-
-    - name: Include Role
-      ansible.builtin.include_role:
-        name: openproject
-
-    - name: Check that OpenProject is available for installation
-      ansible.builtin.command: apt-cache search openproject
+    - name: Check Jinja2 syntax
+      ansible.builtin.command: find -type f -name '*.j2' -exec ansiblej2lint.py {} +
       check_mode: false
       changed_when: false
-      register: openproject_molecule_apt_cache_search
-      failed_when: ("openproject" not in openproject_molecule_apt_cache_search.stdout)
+
+    - name: YAML lint
+      ansible.builtin.command: yamllint -f colored -c .yamllint .
+      check_mode: false
+      changed_when: false
+
+    - name: Ansible lint
+      ansible.builtin.command: ansible-lint -c .ansible-lint --force-color .
+      check_mode: false
+      changed_when: false
 ...
