@@ -7,6 +7,16 @@
     - localhost
   tasks:
 
+    - name: Check pwd
+      ansible.builtin.command: pwd
+      check_mode: false
+      changed_when: false
+      register: molecule_pwd
+
+    - name: Debug pwd
+      ansible.builtin.debug:
+        var: pwd
+
     - name: Check Jinja2 syntax
       ansible.builtin.command: find -type f -name '*.j2' -exec ansiblej2lint.py {} +
       check_mode: false
