@@ -46,7 +46,9 @@
 
         - name: OpenProject GPG key dearmored
           ansible.builtin.shell: |
+            set -e -o pipefail
             gpg --dearmor < /root/openproject.asc > /etc/apt/keyrings/openproject.gpg
+            chmod 644 /etc/apt/keyrings/openproject.gpg
           args:
             executable: "{{ ansible_local.bash.path }}"
           changed_when: false
