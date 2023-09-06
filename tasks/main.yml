@@ -8,6 +8,13 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+- name: OpenProject role skipped
+  ansible.builtin.debug:
+    msg: "The tasks in the OpenProject role are not being run since the openproject variable is not true."
+  when: not openproject | bool
+  tags:
+    - openproject
+
 - name: OpenProject
   block:
 
@@ -30,9 +37,7 @@
         state: present
         update_cache: true
 
-  when:
-    - openproject is defined
-    - openproject | bool
+  when: openproject | bool
 
   tags:
     - openproject

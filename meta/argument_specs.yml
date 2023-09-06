@@ -8,31 +8,23 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: Run as root
-  # become: true
-  connection: local
-  # gather_facts: true
-  hosts:
-    - localhost
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  tasks:
-
-    - name: Debug ansible_effective_user_id
-      ansible.builtin.debug:
-        var: ansible_effective_user_id
-
-    - name: Debug ansible_user_id
-      ansible.builtin.debug:
-        var: ansible_user_id
-
-    - name: Debug ansible_user_dir
-      ansible.builtin.debug:
-        var: ansible_user_dir
-
-    - name: Include role as root
-      ansible.builtin.include_role:
-        name: "{{ lookup('ansible.builtin.env', 'CI_PROJECT_NAME') }}"
-      vars:  # noqa var-naming[no-role-prefix]
-        openproject: true
+argument_specs:
+  main:
+    author: Chris Croome
+    description: Ansible role for installing OpenProject on Debian and Ubuntu.
+    short_description: The main entry point for the OpenProject role.
+    options:
+      openproject:
+        type: bool
+        required: true
+        description: Run the tasks in this role.
+      openproject_major_version:
+        type: int
+        required: true
+        description: The major version of OpenProject to install.
+      openproject_pkgs_present:
+        type: list
+        elements: str
+        required: true
+        description: Packages to be present.
 ...

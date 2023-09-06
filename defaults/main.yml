@@ -8,7 +8,7 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-openproject: true
+openproject: false
 openproject_major_version: 13
 openproject_pkgs_present:
   - openproject
