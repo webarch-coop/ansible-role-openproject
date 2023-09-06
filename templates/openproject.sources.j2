@@ -2,7 +2,7 @@
 
 Types: deb
 URIs: https://dl.packager.io/srv/deb/opf/openproject/stable/{{ openproject_major_version }}/{{ ansible_distribution | lower }}
-Suites: {{ ansible_distribution_major_version }}
+Suites: {{ ansible_distribution_major_version }}{% if ansible_distribution == "Ubuntu" %}.{{ ansible_distribution_minor_version }}{% endif %}
 Architectures: {{ ansible_facts.ansible_local.dpkg.arch }}
 Components: main
 Signed-By: /etc/apt/keyrings/openproject.gpg
