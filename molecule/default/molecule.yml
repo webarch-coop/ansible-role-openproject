@@ -14,12 +14,8 @@ platforms:
   - name: instance
 provisioner:
   name: ansible
-    # host_vars:
-    #   instance:
-    #     ansible_user: ansible
+  options:
+    D: True
 verifier:
   name: ansible
-    # host_vars:
-    #   instance:
-    #     ansible_user: ansible
 ...
