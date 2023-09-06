@@ -19,7 +19,6 @@ variables:
 before_script:
   - whoami
   - pwd
-  - printenv
   - which ansible
   - ansible --version
   - which yamllint

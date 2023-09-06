@@ -18,10 +18,12 @@
     ansible_python_interpreter: /usr/bin/python3
   tasks:
 
-    - name: Run openproject configure
+    - name: Test run openproject configure
       ansible.builtin.command: openproject configure
       check_mode: false
       changed_when: false
       register: molecule_openproject_configure
-
+      failed_when:
+        - molecule_openproject_configure.rc != 1
+        - ( "Launching installer for openproject..." not in molecule_openproject_configure.stdout
 ...
