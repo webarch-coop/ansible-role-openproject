@@ -1,30 +1,38 @@
+# Copyright 2023 Chris Croome
+#
+# This file is part of the Webarchitects OpenProject Ansible role.
+#
+# The Webarchitects OpenProject Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects OpenProject Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: Lint
-  become: false
+- name: Run as root
+  # become: true
   connection: local
-  gather_facts: false
+  # gather_facts: true
   hosts:
     - localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
 
-    - name: Check Jinja2 syntax
-      ansible.builtin.command: find -type f -name '*.j2' -exec ansiblej2lint.py {} +
-      check_mode: false
-      args:
-        chdir: ../..
-      changed_when: false
+    - name: Debug ansible_effective_user_id
+      ansible.builtin.debug:
+        var: ansible_effective_user_id
 
-    - name: YAML lint
-      ansible.builtin.command: yamllint -f colored -c .yamllint .
-      check_mode: false
-      args:
-        chdir: ../..
-      changed_when: false
+    - name: Debug ansible_user_id
+      ansible.builtin.debug:
+        var: ansible_user_id
 
-    - name: Ansible lint
-      ansible.builtin.command: ansible-lint -c .ansible-lint --force-color .
-      check_mode: false
-      args:
-        chdir: ../..
-      changed_when: false
+    - name: Debug ansible_user_dir
+      ansible.builtin.debug:
+        var: ansible_user_dir
+
+    - name: Include php role as root
+      ansible.builtin.include_role:
+        name: openproject
+      vars:  # noqa var-naming[no-role-prefix]
+        php: true
 ...

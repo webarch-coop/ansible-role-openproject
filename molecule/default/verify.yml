@@ -8,8 +8,20 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-openproject: true
-openproject_major_version: 13
-openproject_pkgs_present:
-  - openproject
+- name: Verify as root
+  # become: true
+  connection: local
+  # gather_facts: true
+  hosts:
+    - localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+
+    - name: Run openproject configure
+      ansible.builtin.command: openproject configure
+      check_mode: false
+      changed_when: false
+      register: molecule_openproject_configure
+
 ...

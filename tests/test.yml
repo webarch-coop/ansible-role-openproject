@@ -1,7 +1,0 @@
----
-- name: Molecule tests
-  hosts: localhost
-  remote_user: root
-  roles:
-    - molecule
-...
