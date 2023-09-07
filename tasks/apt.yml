@@ -27,7 +27,7 @@
         url: "{{ openproject_gpg_url }}"
         checksum: "{{ openproject_gpg_checksum }}"
         dest: /root/openproject.asc
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
 
@@ -84,7 +84,7 @@
       ansible.builtin.template:
         src: openproject.sources.j2
         dest: /etc/apt/sources.list.d/openproject.sources
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       register: openproject_sources
@@ -93,7 +93,7 @@
       ansible.builtin.template:
         src: openproject.pref.j2
         dest: /etc/apt/preferences.d/openproject.pref
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       register: openproject_preferences
