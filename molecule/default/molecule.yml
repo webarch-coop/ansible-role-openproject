@@ -1,4 +1,4 @@
-# Copyright 2023 Chris Croome
+# Copyright 2023-2024 Chris Croome
 #
 # This file is part of the Webarchitects OpenProject Ansible role.
 #
@@ -8,14 +8,14 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-dependency: 
+dependency:
   name: galaxy
 platforms:
   - name: instance
 provisioner:
   name: ansible
   options:
-    D: True
+    D: true
 verifier:
   name: ansible
 ...
