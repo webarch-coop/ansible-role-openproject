@@ -8,7 +8,18 @@ sudo openproject configure
 
 ## Notes
 
-* For some reason `openproject configure` seems to sometimes fail if the server is not rebooted before it is run.
+* The upgrade to [OpenProject 13.4.0](https://www.openproject.org/docs/release-notes/13-4-0/) required the following to be run:
+
+```bash
+sudo -i
+su - postgresql
+psql openproject
+GRANT CREATE ON SCHEMA public TO openproject;
+\q
+exit
+exit
+```
+
 * The default Apache config doesn't work with Let's Encrypt and the `Includes` for non existant files causes a problem, the following config with the [users role](https://git.coop/webarch/users) replicates the Apache config provided by OpenProject:
 
 ```yaml
