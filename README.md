@@ -1,10 +1,12 @@
 # Webarchitects OpenProject Ansible Role
 
-Currently this role only installs OpenProject, configuration needs to be done using the wizard:
+Currently this role only [installs OpenProject](https://www.openproject.org/docs/installation-and-operations/installation/), configuration needs to be done using the wizard:
 
 ```bash
 sudo openproject configure
 ```
+
+See the [upgrade instructions](https://www.openproject.org/docs/installation-and-operations/operation/upgrading/) and version [release notes](https://www.openproject.org/docs/release-notes/).
 
 ## Notes
 
