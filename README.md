@@ -9,7 +9,13 @@ sudo openproject configure
 Manually [configure outgoing email](https://www.openproject.org/docs/installation-and-operations/configuration/outbound-emails/) so that a password reset can be sent for the admin account:
 
 ```bash
-openproject config:set OPENPROJECT_EMAIL__DELIVERY__METHOD=sendmail
+openproject config:set OPENPROJECT_EMAIL__DELIVERY__METHOD=smtp
+openproject config:set OPENPROJECT_SMTP__ADDRESS=localhost
+openproject config:set OPENPROJECT_SMTP__PORT=587
+openproject config:set OPENPROJECT_SMTP__DOMAIN=$(hostname -f)
+openproject config:set OPENPROJECT_SMTP__AUTHENTICATION=none
+openproject config:set OPENPROJECT_SMTP__ENABLE__STARTTLS__AUTO=true
+openproject config:set OPENPROJECT_SMTP__OPENSSL__VERIFY__MODE=none
 ```
 
 See the [upgrade instructions](https://www.openproject.org/docs/installation-and-operations/operation/upgrading/) and version [release notes](https://www.openproject.org/docs/release-notes/).
