@@ -6,6 +6,12 @@ Currently this role only [installs OpenProject](https://www.openproject.org/docs
 sudo openproject configure
 ```
 
+Manually [configure outgoing email](https://www.openproject.org/docs/installation-and-operations/configuration/outbound-emails/) so that a password reset can be sent for the admin account:
+
+```bash
+openproject config:set OPENPROJECT_EMAIL__DELIVERY__METHOD=sendmail
+```
+
 See the [upgrade instructions](https://www.openproject.org/docs/installation-and-operations/operation/upgrading/) and version [release notes](https://www.openproject.org/docs/release-notes/).
 
 ## Notes
