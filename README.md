@@ -26,6 +26,20 @@ Get [all the environment variables](https://www.openproject.org/docs/installatio
 openproject run bundle exec rake setting:available_envs
 ```
 
+Other settings that might need fixing:
+
+```bash
+openproject config:get OPENPROJECT_HOST__NAME
+openproject config:get OPENPROJECT_HTTPS
+```
+
+For example:
+
+```bash
+openproject config:set OPENPROJECT_HOST__NAME=openproject.$(hostname -f)
+openproject config:set OPENPROJECT_HTTPS=true
+```
+
 See the [upgrade instructions](https://www.openproject.org/docs/installation-and-operations/operation/upgrading/) and version [release notes](https://www.openproject.org/docs/release-notes/).
 
 ## Notes
