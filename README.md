@@ -14,7 +14,7 @@ openproject config:set OPENPROJECT_SMTP__ADDRESS=localhost
 openproject config:set OPENPROJECT_SMTP__PORT=25
 openproject config:set OPENPROJECT_SMTP__DOMAIN=$(hostname -f)
 openproject config:set OPENPROJECT_SMTP__AUTHENTICATION=none
-openproject config:set OPENPROJECT_SMTP__ENABLE__STARTTLS__AUTO=true
+openproject config:set OPENPROJECT_SMTP__ENABLE__STARTTLS__AUTO=false
 openproject config:set OPENPROJECT_SMTP__OPENSSL__VERIFY__MODE=none
 ```
 
