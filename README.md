@@ -10,13 +10,20 @@ Manually [configure outgoing email](https://www.openproject.org/docs/installatio
 
 ```bash
 openproject config:set OPENPROJECT_EMAIL__DELIVERY__METHOD=smtp
+openproject config:set OPENPROJECT_MAIL__FROM=openproject@$(hostname -f)
 openproject config:set OPENPROJECT_SMTP__ADDRESS=localhost
 openproject config:set OPENPROJECT_SMTP__PORT=25
 openproject config:set OPENPROJECT_SMTP__DOMAIN=$(hostname -f)
-openproject config:set OPENPROJECT_SMTP__USER__NAME=openproject@$(hostname -f)
 openproject config:set OPENPROJECT_SMTP__AUTHENTICATION=none
 openproject config:set OPENPROJECT_SMTP__ENABLE__STARTTLS__AUTO=false
 openproject config:set OPENPROJECT_SMTP__OPENSSL__VERIFY__MODE=none
+openproject restart
+```
+
+Get [all the environment variables](https://www.openproject.org/docs/installation-and-operations/configuration/environment/#supported-environment-variables):
+
+```bash
+openproject run bundle exec rake setting:available_envs
 ```
 
 See the [upgrade instructions](https://www.openproject.org/docs/installation-and-operations/operation/upgrading/) and version [release notes](https://www.openproject.org/docs/release-notes/).
