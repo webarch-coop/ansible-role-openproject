@@ -40,6 +40,13 @@ openproject config:set OPENPROJECT_HOST__NAME=openproject.$(hostname -f)
 openproject config:set OPENPROJECT_HTTPS=true
 ```
 
+This role doesn't upgrade OpenProject but it does update the apt config so that it can then be done manually:
+
+```bash
+apt-get install --only-upgrade openproject
+openproject configure
+```
+
 See the [upgrade instructions](https://www.openproject.org/docs/installation-and-operations/operation/upgrading/) and version [release notes](https://www.openproject.org/docs/release-notes/).
 
 ## Notes
