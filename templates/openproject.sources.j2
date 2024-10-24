@@ -1,11 +1,11 @@
 # {{ ansible_managed }}
 
 Types: deb
-URIs: https://dl.packager.io/srv/deb/opf/openproject/stable/{{ openproject_major_version }}/{{ ansible_distribution | lower }}
-{% if ansible_distribution == "Debian" %}
-Suites: {{ ansible_distribution_major_version }}
-{% elif ansible_distribution == "Ubuntu" %}
-Suites: {{ ansible_distribution_version }}
+URIs: https://dl.packager.io/srv/deb/opf/openproject/stable/{{ openproject_major_version }}/{{ ansible_facts.distribution | lower }}
+{% if ansible_facts.distribution == "Debian" %}
+Suites: {{ ansible_facts.distribution_major_version }}
+{% elif ansible_facts.distribution == "Ubuntu" %}
+Suites: {{ ansible_facts.distribution_version }}
 {% endif %}
 Architectures: {{ ansible_facts.ansible_local.dpkg.arch }}
 Components: main

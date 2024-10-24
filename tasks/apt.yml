@@ -50,14 +50,14 @@
             gpg --dearmor < /root/openproject.asc > /etc/apt/keyrings/openproject.gpg
             chmod 644 /etc/apt/keyrings/openproject.gpg
           args:
-            executable: "{{ ansible_local.bash.path }}"
+            executable: "{{ ansible_facts.ansible_local.bash.path }}"
           changed_when: false
           when: openproject_asc_file.stat.exists
 
         - name: OpenProject gpg key check command
           ansible.builtin.command: >-
             gpg --with-colons
-            {% if ansible_local.gpg.version is version('2.2.12', '<') %}
+            {% if ansible_facts.ansible_local.gpg.version is version('2.2.12', '<') %}
             --with-fingerprint --with-subkey-fingerprint
             {% else %}
             --show-keys

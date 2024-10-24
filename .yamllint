@@ -8,8 +8,10 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects OpenProject Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# Based on ansible-lint config
 extends: default
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
 rules:
   braces:
     max-spaces-inside: 1
@@ -17,26 +19,12 @@ rules:
   brackets:
     max-spaces-inside: 1
     level: error
-  colons:
-    max-spaces-after: -1
-    level: error
-  commas:
-    max-spaces-after: -1
-    level: error
-  comments: disable
-  comments-indentation: disable
-  document-start: disable
-  empty-lines:
-    max: 3
-    level: error
-  hyphens:
-    level: error
-  indentation: disable
-  key-duplicates: enable
   line-length: disable
-  new-line-at-end-of-file: disable
-  new-lines:
-    type: unix
-  trailing-spaces: disable
-  truthy: disable
+  comments-indentation: disable
+  comments:
+    min-spaces-from-content: 1
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
+# vim: syntax=yaml
 ...

@@ -11,5 +11,6 @@
 # https://ansible-lint.readthedocs.io/rules/
 skip_list:
   - key-order[task]
+var_naming_pattern: "^[openproject|molecule]_?[0-9a-z_]*$"
 # vim: syntax=yaml
 ...
